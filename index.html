@@ -94,7 +94,16 @@
         .result {
             margin-top: 20px;
             font-weight: bold;
-            color: #4CAF50;
+        }
+
+        .result .label {
+            font-size: 20px;  /* Smaller explanatory text */
+        }
+
+        .result .time {
+            font-size: 60px;  /* Big result text */
+            font-weight: normal;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -124,7 +133,9 @@
     </div>
 
     <!-- Result Display -->
-    <div class="result" id="result"></div>
+    <div class="result" id="result">
+        <!-- Result will be dynamically added here -->
+    </div>
 
     <script>
         // Switch between modes: time calculation and pace calculation
@@ -153,8 +164,7 @@
             const match = paceInput.match(pacePattern);
 
             if (!match) {
-                resultDiv.textContent = "Please enter a valid pace in the format 'm:ss'.";
-                resultDiv.style.color = 'red';
+                resultDiv.innerHTML = `<div class="label" style="color: red;">Please enter a valid pace in the format 'm:ss'.</div>`;
                 return;
             }
 
@@ -178,7 +188,11 @@
 
             // Format and display result
             const formattedTime = `${totalHours > 0 ? totalHours + "h " : ""}${totalMinutes}m ${totalSeconds}s`;
-            resultDiv.textContent = `Your estimated finish time is: ${formattedTime}`;
+
+            resultDiv.innerHTML = `
+                <div class="label">Your estimated finish time is:</div>
+                <div class="time">${formattedTime}</div>
+            `;
         }
 
         // Calculate pace per mile based on finishing time
@@ -191,8 +205,7 @@
             const match = finishTimeInput.match(timePattern);
 
             if (!match) {
-                resultDiv.textContent = "Please enter a valid time in the format 'h:mm:ss' or 'm:ss'.";
-                resultDiv.style.color = 'red';
+                resultDiv.innerHTML = `<div class="label" style="color: red;">Please enter a valid time in the format 'h:mm:ss' or 'm:ss'.</div>`;
                 return;
             }
 
@@ -222,7 +235,11 @@
 
             // Format and display result
             const formattedPace = `${paceMinutes}:${paceSeconds < 10 ? '0' : ''}${paceSeconds}`;
-            resultDiv.textContent = `Your pace per mile is: ${formattedPace}`;
+
+            resultDiv.innerHTML = `
+                <div class="label">Your pace per mile is:</div>
+                <div class="time">${formattedPace}</div>
+            `;
         }
     </script>
 
