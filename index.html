@@ -15,10 +15,11 @@
       color: #5fbd72;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
       height: 100vh;
       text-align: center;
+      padding-top: 20px;
     }
 
     h1 {
@@ -33,7 +34,7 @@
 
     h3 {
       font-size: 1.5rem;
-      margin-bottom: 0.5rem;
+      margin-bottom: 1rem;
     }
 
     button {
@@ -45,6 +46,7 @@
       font-size: 1.1rem;
       cursor: pointer;
       transition: background-color 0.3s;
+      margin: 10px 0;
     }
 
     button:hover {
@@ -52,7 +54,7 @@
     }
 
     .plan-container {
-      margin-top: 2rem;
+      margin-top: 20px;
       display: none;
       text-align: left;
       max-width: 800px;
@@ -88,17 +90,68 @@
       background-color: #444;
     }
 
+    /* Calculator Styling */
+    .calculator-container {
+      width: 90%;
+      max-width: 600px;
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #222;
+      border-radius: 8px;
+    }
+
+    .form-group {
+      margin: 10px 0;
+    }
+
+    input[type="number"], select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      background-color: #333;
+      color: #5fbd72;
+      border: 1px solid #444;
+      border-radius: 5px;
+    }
+
+    .output {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-top: 20px;
+      color: #5fbd72;
+    }
+
   </style>
 </head>
 <body>
 
+  <!-- App Header -->
   <h1>Gristmill Grinder</h1>
   <h2>Time & Pace Calculator</h2>
 
-  <div>
-    <button onclick="togglePlan()">View Training Plan</button>
+  <!-- Calculator Section -->
+  <div class="calculator-container">
+    <h3>Calculate Your Half Marathon Time</h3>
+    <div class="form-group">
+      <label for="pace">Enter Your Pace (minutes per mile):</label>
+      <input type="number" id="pace" placeholder="Pace in minutes" step="0.1" min="1">
+    </div>
+    <button onclick="calculateTime()">Calculate Time</button>
+    <div class="output" id="time-output"></div>
+
+    <h3>Calculate Your Pace</h3>
+    <div class="form-group">
+      <label for="finish-time">Enter Your Finish Time (hh:mm:ss):</label>
+      <input type="time" id="finish-time">
+    </div>
+    <button onclick="calculatePace()">Calculate Pace</button>
+    <div class="output" id="pace-output"></div>
   </div>
 
+  <!-- View Training Plan Button -->
+  <button onclick="togglePlan()">View Training Plan</button>
+
+  <!-- Training Plan -->
   <div id="plan" class="plan-container">
     <h3>12-Week Half Marathon Training Plan</h3>
     <table>
@@ -112,54 +165,107 @@
       </thead>
       <tbody>
         <!-- Week 1 -->
-        <tr>
-          <td>1</td>
-          <td>Sun</td>
-          <td>Active recovery (walking, gentle stretching)</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>Mon</td>
-          <td>Rest or Active Recovery</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>Tue</td>
-          <td>3-mile run at an easy pace</td>
-          <td>3 miles</td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>Wed</td>
-          <td>Cross-training (bike, swim, or yoga)</td>
-          <td>30-45 minutes</td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>Thu</td>
-          <td>3-mile run with a few strides (light speed work)</td>
-          <td>3 miles</td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>Fri</td>
-          <td>Rest</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>Sat</td>
-          <td>Long run (start at 4 miles)</td>
-          <td>4 miles</td>
-        </tr>
-        <!-- Add other weeks here... -->
+        <tr><td>1</td><td>Sun</td><td>Active recovery (walking, gentle stretching)</td><td></td></tr>
+        <tr><td>1</td><td>Mon</td><td>Rest or Active Recovery</td><td></td></tr>
+        <tr><td>1</td><td>Tue</td><td>3-mile run at an easy pace</td><td>3 miles</td></tr>
+        <tr><td>1</td><td>Wed</td><td>Cross-training (bike, swim, or yoga)</td><td>30-45 minutes</td></tr>
+        <tr><td>1</td><td>Thu</td><td>3-mile run with a few strides</td><td>3 miles</td></tr>
+        <tr><td>1</td><td>Fri</td><td>Rest</td><td></td></tr>
+        <tr><td>1</td><td>Sat</td><td>Long run (start at 4 miles)</td><td>4 miles</td></tr>
+        <!-- Week 2 -->
+        <tr><td>2</td><td>Sun</td><td>Active recovery</td><td></td></tr>
+        <tr><td>2</td><td>Mon</td><td>Rest or Active Recovery</td><td></td></tr>
+        <tr><td>2</td><td>Tue</td><td>3.5-mile run at an easy pace</td><td>3.5 miles</td></tr>
+        <tr><td>2</td><td>Wed</td><td>Cross-training</td><td>30-45 minutes</td></tr>
+        <tr><td>2</td><td>Thu</td><td>3.5-mile run with a few strides</td><td>3.5 miles</td></tr>
+        <tr><td>2</td><td>Fri</td><td>Rest</td><td></td></tr>
+        <tr><td>2</td><td>Sat</td><td>Long run (5 miles)</td><td>5 miles</td></tr>
+        <!-- Week 3 -->
+        <tr><td>3</td><td>Sun</td><td>Active recovery</td><td></td></tr>
+        <tr><td>3</td><td>Mon</td><td>Rest or Active Recovery</td><td></td></tr>
+        <tr><td>3</td><td>Tue</td><td>4-mile run</td><td>4 miles</td></tr>
+        <tr><td>3</td><td>Wed</td><td>Cross-training</td><td>45 minutes</td></tr>
+        <tr><td>3</td><td>Thu</td><td>4-mile run with speed work</td><td>4 miles</td></tr>
+        <tr><td>3</td><td>Fri</td><td>Rest</td><td></td></tr>
+        <tr><td>3</td><td>Sat</td><td>Long run (6 miles)</td><td>6 miles</td></tr>
+        <!-- Week 4 -->
+        <tr><td>4</td><td>Sun</td><td>Active recovery</td><td></td></tr>
+        <tr><td>4</td><td>Mon</td><td>Rest</td><td></td></tr>
+        <tr><td>4</td><td>Tue</td><td>4.5-mile run</td><td>4.5 miles</td></tr>
+        <tr><td>4</td><td>Wed</td><td>Cross-training</td><td>45 minutes</td></tr>
+        <tr><td>4</td><td>Thu</td><td>4.5-mile run with speed work</td><td>4.5 miles</td></tr>
+        <tr><td>4</td><td>Fri</td><td>Rest</td><td></td></tr>
+        <tr><td>4</td><td>Sat</td><td>Long run (7 miles)</td><td>7 miles</td></tr>
+        <!-- Week 5 -->
+        <tr><td>5</td><td>Sun</td><td>Active recovery</td><td></td></tr>
+        <tr><td>5</td><td>Mon</td><td>Rest or Active Recovery</td><td></td></tr>
+        <tr><td>5</td><td>Tue</td><td>5-mile run</td><td>5 miles</td></tr>
+        <tr><td>5</td><td>Wed</td><td>Cross-training</td><td>45 minutes</td></tr>
+        <tr><td>5</td><td>Thu</td><td>5-mile run with speed work</td><td>5 miles</td></tr>
+        <tr><td>5</td><td>Fri</td><td>Rest</td><td></td></tr>
+        <tr><td>5</td><td>Sat</td><td>Long run (8 miles)</td><td>8 miles</td></tr>
+        <!-- Week 6 -->
+        <tr><td>6</td><td>Sun</td><td>Active recovery</td><td></td></tr>
+        <tr><td>6</td><td>Mon</td><td>Rest</td><td></td></tr>
+        <tr><td>6</td><td>Tue</td><td>5.5-mile run</td><td>5.5 miles</td></tr>
+        <tr><td>6</td><td>Wed</td><td>Cross-training</td><td>45 minutes</td></tr>
+        <tr><td>6</td><td>Thu</td><td>5.5-mile run with speed work</td><td>5.5 miles</td></tr>
+        <tr><td>6</td><td>Fri</td><td>Rest</td><td></td></tr>
+        <tr><td>6</td><td>Sat</td><td>Long run (9 miles)</td><td>9 miles</td></tr>
+        <!-- Week 7 -->
+        <tr><td>7</td><td>Sun</td><td>Active recovery</td><td></td></tr>
+        <tr><td>7</td><td>Mon</td><td>Rest</td><td></td></tr>
+        <tr><td>7</td><td>Tue</td><td>6-mile run</td><td>6 miles</td></tr>
+        <tr><td>7</td><td>Wed</td><td>Cross-training</td><td>45 minutes</td></tr>
+        <tr><td>7</td><td>Thu</td><td>6-mile run with speed work</td><td>6 miles</td></tr>
+        <tr><td>7</td><td>Fri</td><td>Rest</td><td></td></tr>
+        <tr><td>7</td><td>Sat</td><td>Long run (10 miles)</td><td>10 miles</td></tr>
+        <!-- Week 8 -->
+        <tr><td>8</td><td>Sun</td><td>Active recovery</td><td></td></tr>
+        <tr><td>8</td><td>Mon</td><td>Rest</td><td></td></tr>
+        <tr><td>8</td><td>Tue</td><td>6.5-mile run</td><td>6.5 miles</td></tr>
+        <tr><td>8</td><td>Wed</td><td>Cross-training</td><td>45 minutes</td></tr>
+        <tr><td>8</td><td>Thu</td><td>6.5-mile run with speed work</td><td>6.5 miles</td></tr>
+        <tr><td>8</td><td>Fri</td><td>Rest</td><td></td></tr>
+        <tr><td>8</td><td>Sat</td><td>Long run (11 miles)</td><td>11 miles</td></tr>
+        <!-- Week 9 -->
+        <tr><td>9</td><td>Sun</td><td>Active recovery</td><td></td></tr>
+        <tr><td>9</td><td>Mon</td><td>Rest</td><td></td></tr>
+        <tr><td>9</td><td>Tue</td><td>6.5-mile run</td><td>6.5 miles</td></tr>
+        <tr><td>9</td><td>Wed</td><td>Cross-training</td><td>45 minutes</td></tr>
+        <tr><td>9</td><td>Thu</td><td>7-mile run</td><td>7 miles</td></tr>
+        <tr><td>9</td><td>Fri</td><td>Rest</td><td></td></tr>
+        <tr><td>9</td><td>Sat</td><td>Long run (12 miles)</td><td>12 miles</td></tr>
+        <!-- Week 10 -->
+        <tr><td>10</td><td>Sun</td><td>Active recovery</td><td></td></tr>
+        <tr><td>10</td><td>Mon</td><td>Rest</td><td></td></tr>
+        <tr><td>10</td><td>Tue</td><td>7-mile run</td><td>7 miles</td></tr>
+        <tr><td>10</td><td>Wed</td><td>Cross-training</td><td>45 minutes</td></tr>
+        <tr><td>10</td><td>Thu</td><td>7-mile run</td><td>7 miles</td></tr>
+        <tr><td>10</td><td>Fri</td><td>Rest</td><td></td></tr>
+        <tr><td>10</td><td>Sat</td><td>Long run (13 miles)</td><td>13 miles</td></tr>
+        <!-- Week 11 -->
+        <tr><td>11</td><td>Sun</td><td>Active recovery</td><td></td></tr>
+        <tr><td>11</td><td>Mon</td><td>Rest</td><td></td></tr>
+        <tr><td>11</td><td>Tue</td><td>8-mile run</td><td>8 miles</td></tr>
+        <tr><td>11</td><td>Wed</td><td>Cross-training</td><td>45 minutes</td></tr>
+        <tr><td>11</td><td>Thu</td><td>8-mile run</td><td>8 miles</td></tr>
+        <tr><td>11</td><td>Fri</td><td>Rest</td><td></td></tr>
+        <tr><td>11</td><td>Sat</td><td>Long run (13.1 miles)</td><td>13.1 miles</td></tr>
+        <!-- Week 12 -->
+        <tr><td>12</td><td>Sun</td><td>Active recovery</td><td></td></tr>
+        <tr><td>12</td><td>Mon</td><td>Rest</td><td></td></tr>
+        <tr><td>12</td><td>Tue</td><td>4-mile run</td><td>4 miles</td></tr>
+        <tr><td>12</td><td>Wed</td><td>Cross-training</td><td>30-45 minutes</td></tr>
+        <tr><td>12</td><td>Thu</td><td>3-mile run</td><td>3 miles</td></tr>
+        <tr><td>12</td><td>Fri</td><td>Rest</td><td></td></tr>
+        <tr><td>12</td><td>Sat</td><td>Race Day! Run your Half Marathon!</td><td>13.1 miles</td></tr>
       </tbody>
     </table>
   </div>
 
   <script>
+    // Toggle Training Plan visibility
     function togglePlan() {
       const planContainer = document.getElementById('plan');
       if (planContainer.style.display === "none" || planContainer.style.display === "") {
@@ -168,7 +274,36 @@
         planContainer.style.display = "none";
       }
     }
-  </script>
 
+    // Time & Pace Calculator Logic
+    function calculateTime() {
+      const pace = parseFloat(document.getElementById('pace').value);
+      if (!pace || pace <= 0) {
+        alert("Please enter a valid pace.");
+        return;
+      }
+      const halfMarathonDistance = 13.1; // miles
+      const timeInMinutes = pace * halfMarathonDistance;
+      const hours = Math.floor(timeInMinutes / 60);
+      const minutes = Math.floor(timeInMinutes % 60);
+      const seconds = Math.round((timeInMinutes % 1) * 60);
+      const formattedTime = `${hours}:${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+      document.getElementById('time-output').textContent = `Your estimated finish time is: ${formattedTime}`;
+    }
+
+    function calculatePace() {
+      const finishTime = document.getElementById('finish-time').value;
+      if (!finishTime) {
+        alert("Please enter a valid finish time.");
+        return;
+      }
+      const timeParts = finishTime.split(':');
+      const totalMinutes = (parseInt(timeParts[0]) * 60) + parseInt(timeParts[1]);
+      const pacePerMile = totalMinutes / 13.1;
+      const paceMinutes = Math.floor(pacePerMile);
+      const paceSeconds = Math.round((pacePerMile % 1) * 60);
+      document.getElementById('pace-output').textContent = `Your pace is: ${paceMinutes}:${paceSeconds < 10 ? '0' + paceSeconds : paceSeconds} per mile`;
+    }
+  </script>
 </body>
 </html>
