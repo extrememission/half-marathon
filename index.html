@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Half Marathon Calculator</title>
+    <title>Gristmill Grinder Time & Pace Calculator</title>
     <style>
         /* General Reset */
         * {
@@ -26,20 +26,30 @@
             padding: 20px;
         }
 
-        /* Text Glow Effect */
-        h1, .result {
-            font-size: 30px;
-            text-shadow: 0 0 10px rgba(0, 188, 212, 0.7), 0 0 20px rgba(0, 188, 212, 0.7);
+        /* Header Style */
+        h1 {
+            font-size: 40px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .subheader {
+            font-size: 24px;
+            font-weight: normal;
+            margin-bottom: 30px;
         }
 
         /* Radio Buttons for Mode Selection */
         .radio-group {
             margin-bottom: 30px;
+            display: flex;
+            flex-direction: column; /* Radio buttons in column format */
+            align-items: center;
         }
         label {
             font-size: 18px;
             cursor: pointer;
-            margin-right: 15px;
+            margin: 10px 0;
         }
         input[type="radio"] {
             margin-right: 8px;
@@ -83,12 +93,14 @@
         .result {
             margin-top: 20px;
             font-weight: bold;
+            color: #00bcd4;
         }
     </style>
 </head>
 <body>
 
-    <h1>Half Marathon Time & Pace Calculator</h1>
+    <h1>Gristmill Grinder</h1>
+    <div class="subheader">Time & Pace Calculator</div>
 
     <!-- Radio Buttons for selecting Mode -->
     <div class="radio-group">
@@ -166,7 +178,6 @@
             // Format and display result
             const formattedTime = `${totalHours > 0 ? totalHours + "h " : ""}${totalMinutes}m ${totalSeconds}s`;
             resultDiv.textContent = `Your estimated finish time is: ${formattedTime}`;
-            resultDiv.style.color = '#00bcd4';
         }
 
         // Calculate pace per mile based on finishing time
@@ -211,7 +222,6 @@
             // Format and display result
             const formattedPace = `${paceMinutes}:${paceSeconds < 10 ? '0' : ''}${paceSeconds}`;
             resultDiv.textContent = `Your pace per mile is: ${formattedPace}`;
-            resultDiv.style.color = '#00bcd4';
         }
     </script>
 
