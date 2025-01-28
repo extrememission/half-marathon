@@ -27,111 +27,31 @@
             padding: 20px;
         }
 
-        /* Header Style */
         h1 {
-            font-size: 50px;
-            font-weight: bold;
-            margin-bottom: 10px;
+            font-size: 3rem;
+            margin-bottom: 1rem;
         }
 
         .subheader {
-            font-size: 24px;
-            font-weight: normal;<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gristmill Grinder Time & Pace Calculator</title>
-  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
-  <style>
-    /* Global styles */
-    body {
-      font-family: 'Lobster', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #111;
-      color: #5fbd72;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
-      height: 100vh;
-      text-align: center;
-      padding-top: 20px;
-    }
-            
-.countdown-container {
-    width: 100%;
-    height: 60px;
-    overflow: hidden;
-}
-
-.countdown-container iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-}
-
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 0.5rem;
-    }
-
-    h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-
-    h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
-
-    button {
-      background-color: #5fbd72;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      font-size: 1.1rem;
-      cursor: pointer;
-      transition: background-color 0.3s;
-      margin: 10px 0;
-    }
-
-    button:hover {
-      background-color: #4a9e60;
-    }
-
-    .plan-container {
-      margin-top: 20px;
-      display: none;
-      text-align: left;
-      max-width: 800px;
-      width: 90%;
-      margin: auto;
-    }
-
-            margin-bottom: 30px;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
         }
 
-        /* Radio Buttons for Mode Selection */
+        .countdown-container iframe {
+            width: 100%;
+            height: 60px;
+            border: none;
+        }
+
         .radio-group {
             margin-bottom: 30px;
-            display: flex;
-            flex-direction: column; /* Radio buttons in column format */
-            align-items: center;
         }
+
         label {
             font-size: 18px;
             cursor: pointer;
-            margin: 10px 0;
-        }
-        input[type="radio"] {
-            margin-right: 8px;
         }
 
-        /* Input Fields */
         input[type="text"] {
             padding: 14px;
             font-size: 18px;
@@ -139,12 +59,11 @@
             max-width: 350px;
             border: 2px solid #4CAF50;
             border-radius: 8px;
-            margin: 10px 0;
+            margin-top: 10px;
             background-color: #2c2c2c;
             color: #fff;
         }
 
-        /* Button Style */
         button {
             padding: 16px 30px;
             font-size: 18px;
@@ -156,29 +75,25 @@
             width: 80%;
             max-width: 350px;
         }
+
         button:hover {
             background-color: #45a049;
         }
 
-        /* Hide Content Initially */
         .mode {
-            display: none;
+            display: none; /* Hide initially */
         }
 
-        /* Result Text */
         .result {
             margin-top: 20px;
-            font-weight: bold;
         }
 
         .result .label {
-            font-size: 20px;  /* Smaller explanatory text */
+            font-size: 20px;  
         }
 
         .result .time {
-            font-size: 60px;  /* Big result text */
-            font-weight: normal;
-            margin-top: 10px;
+            font-size: 40px;  
         }
     </style>
 </head>
@@ -187,142 +102,123 @@
     <h1>Gristmill Grinder</h1>
     <div class="subheader">1/2 Marathon Time & Pace Calculator</div>
 
-<div class="countdown-container">
-    <iframe src="countdown-timer.html" frameborder="0" scrolling="no"></iframe>
-</div>
+    <div class="countdown-container">
+        <iframe src="countdown-timer.html" frameborder="0" scrolling="no"></iframe>
+    </div>
 
-
-  
     <!-- Radio Buttons for selecting Mode -->
     <div class="radio-group">
-        <label><input type="radio" name="mode" value="time" onclick="switchMode('time')"> Calculate Finish Time</label>
+        <label><input type="radio" name="mode" value="time" onclick="switchMode('time')"> Calculate Finish Time</label><br>
         <label><input type="radio" name="mode" value="pace" onclick="switchMode('pace')"> Calculate Pace per Mile</label>
     </div>
 
-    <!-- Mode for calculating Finish Time -->
+    <!-- Input Modes -->
     <div id="timeMode" class="mode">
         <label for="pace">Enter your pace per mile (m:ss):</label><br>
         <input type="text" id="pace" placeholder="e.g., 9:30">
-        <button onclick="calculateTime()">Calculate Finish Time</button>
     </div>
 
-    <!-- Mode for calculating Pace -->
     <div id="paceMode" class="mode">
         <label for="finishTime">Enter your finishing time (h:mm:ss):</label><br>
         <input type="text" id="finishTime" placeholder="e.g., 2:05:30">
-        <button onclick="calculatePace()">Calculate Pace</button>
     </div>
+
+    <!-- Shared Button -->
+    <button id="calculateButton" onclick="">Calculate</button>
 
     <!-- Result Display -->
-    <div class="result" id="result">
-        <!-- Result will be dynamically added here -->
-    </div>
+    <div class="result" id="result"></div>
 
-    <script>
-        // Switch between modes: time calculation and pace calculation
-        function switchMode(mode) {
-            // Reset the result and input fields
-            document.getElementById('result').textContent = '';
-            document.getElementById('pace').value = '';
-            document.getElementById('finishTime').value = '';
+<script>
+    const distance = 13.1; // Half marathon distance
 
-            if (mode === 'time') {
-                document.getElementById('timeMode').style.display = 'block';
-                document.getElementById('paceMode').style.display = 'none';
-            } else if (mode === 'pace') {
-                document.getElementById('timeMode').style.display = 'none';
-                document.getElementById('paceMode').style.display = 'block';
-            }
+    function switchMode(mode) {
+        // Reset inputs and result
+        document.getElementById('result').innerHTML = '';
+        document.getElementById('pace').value = '';
+        document.getElementById('finishTime').value = '';
+
+        // Show the selected mode
+        document.getElementById('timeMode').style.display = mode === 'time' ? 'block' : 'none';
+        document.getElementById('paceMode').style.display = mode === 'pace' ? 'block' : 'none';
+
+        // Update button action
+        const calculateButton = document.getElementById('calculateButton');
+        calculateButton.setAttribute('onclick', mode === 'time' ? 'calculateTime()' : 'calculatePace()');
+    }
+
+    function calculateTime() {
+        const paceInput = document.getElementById('pace').value.trim();
+        
+        if (!validatePace(paceInput)) {
+            displayError("Please enter a valid pace in the format 'm:ss'.");
+            return;
+        }
+        
+        const [minutes, seconds] = paceInput.split(':').map(Number);
+        
+        const totalSecondsPerMile = minutes * 60 + seconds;
+
+        const totalTimeInSeconds = totalSecondsPerMile * distance;
+
+        displayResult(formatTime(totalTimeInSeconds), "Your estimated finish time is:");
+    }
+
+    function calculatePace() {
+        const finishTimeInput = document.getElementById('finishTime').value.trim();
+
+        if (!validateTime(finishTimeInput)) {
+            displayError("Please enter a valid time in the format 'h:mm:ss' or 'm:ss'.");
+            return;
         }
 
-        // Calculate the finish time based on pace per mile
-        function calculateTime() {
-            const paceInput = document.getElementById('pace').value.trim();
-            const resultDiv = document.getElementById('result');
+        const [hours, minutes, seconds] = parseTime(finishTimeInput);
 
-            // Validate pace format
-            const pacePattern = /^(\d+):(\d{2})$/;
-            const match = paceInput.match(pacePattern);
+        const totalTimeInSeconds = (hours * 3600) + (minutes * 60) + seconds;
 
-            if (!match) {
-                resultDiv.innerHTML = `<div class="label" style="color: red;">Please enter a valid pace in the format 'm:ss'.</div>`;
-                return;
-            }
+        const pacePerMileInSeconds = totalTimeInSeconds / distance;
 
-            const paceMinutes = parseInt(match[1]);
-            const paceSeconds = parseInt(match[2]);
+        displayResult(formatPace(pacePerMileInSeconds), "Your pace per mile is:");
+    }
 
-            // Half marathon distance is 13.1 miles
-            const distance = 13.1;
+    function validatePace(pace) {
+      return /^(\d+):(\d{2})$/.test(pace);
+    }
 
-            // Convert pace to total seconds per mile
-            const totalSecondsPerMile = paceMinutes * 60 + paceSeconds;
+    function validateTime(time) {
+      return /^(\d{1,2}):(\d{2}):(\d{2})$|^(\d{1,2}):(\d{2})$/.test(time);
+    }
 
-            // Calculate total time for half marathon in seconds
-            const totalTimeInSeconds = totalSecondsPerMile * distance;
+    function parseTime(time) {
+      const parts = time.split(':').map(Number);
+      if (parts.length === 3) return parts; // h:mm:ss
+      return [0, parts[0], parts[1]]; // m:ss
+    }
 
-            // Convert total time back to h:mm:ss
-            const totalHours = Math.floor(totalTimeInSeconds / 3600);
-            const remainingSeconds = totalTimeInSeconds % 3600;
-            const totalMinutes = Math.floor(remainingSeconds / 60);
-            const totalSeconds = Math.round(remainingSeconds % 60);
+    function formatTime(seconds) {
+      const hours = Math.floor(seconds / 3600);
+      const minutes = Math.floor((seconds % 3600) / 60);
+      const secs = Math.round(seconds % 60);
+      return `${hours > 0 ? hours + "h " : ""}${minutes}m ${secs}s`;
+    }
 
-            // Format and display result
-            const formattedTime = `${totalHours > 0 ? totalHours + "h " : ""}${totalMinutes}m ${totalSeconds}s`;
+    function formatPace(seconds) {
+      const minutes = Math.floor(seconds / 60);
+      const secs = Math.round(seconds % 60);
+      return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+    }
 
-            resultDiv.innerHTML = `
-                <div class="label">Your estimated finish time is:</div>
-                <div class="time">${formattedTime}</div>
-            `;
-        }
+    function displayResult(value, label) {
+      document.getElementById('result').innerHTML = `
+          <div class='label'>${label}</div>
+          <div class='time'>${value}</div>`;
+    }
 
-        // Calculate pace per mile based on finishing time
-        function calculatePace() {
-            const finishTimeInput = document.getElementById('finishTime').value.trim();
-            const resultDiv = document.getElementById('result');
-
-            // Validate finish time format (h:mm:ss or m:ss)
-            const timePattern = /^(\d{1,2}):(\d{2}):(\d{2})$|^(\d{1,2}):(\d{2})$/;
-            const match = finishTimeInput.match(timePattern);
-
-            if (!match) {
-                resultDiv.innerHTML = `<div class="label" style="color: red;">Please enter a valid time in the format 'h:mm:ss' or 'm:ss'.</div>`;
-                return;
-            }
-
-            let hours = 0, minutes = 0, seconds = 0;
-
-            if (match[1] && match[2] && match[3]) {
-                hours = parseInt(match[1]);
-                minutes = parseInt(match[2]);
-                seconds = parseInt(match[3]);
-            } else if (match[4] && match[5]) {
-                minutes = parseInt(match[4]);
-                seconds = parseInt(match[5]);
-            }
-
-            // Convert total time to seconds
-            const totalTimeInSeconds = (hours * 3600) + (minutes * 60) + seconds;
-
-            // Half marathon distance is 13.1 miles
-            const distance = 13.1;
-
-            // Calculate pace per mile in seconds
-            const pacePerMileInSeconds = totalTimeInSeconds / distance;
-
-            // Convert pace to minutes:seconds format
-            const paceMinutes = Math.floor(pacePerMileInSeconds / 60);
-            const paceSeconds = Math.round(pacePerMileInSeconds % 60);
-
-            // Format and display result
-            const formattedPace = `${paceMinutes}:${paceSeconds < 10 ? '0' : ''}${paceSeconds}`;
-
-            resultDiv.innerHTML = `
-                <div class="label">Your pace per mile is:</div>
-                <div class="time">${formattedPace}</div>
-            `;
-        }
-    </script>
+    function displayError(message) {
+      document.getElementById('result').innerHTML = `
+          <div class='label' style='color:red;'>${message}</div>`;
+    }
+</script>
 
 </body>
 </html>
