@@ -60,10 +60,16 @@
       padding-top: 20px;
     }
             
-.embed-container {
-  overflow: hidden;
-  width: 100%;
-  height: 60px;
+.countdown-container {
+    width: 100%;
+    height: 60px;
+    overflow: hidden;
+}
+
+.countdown-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
 }
 
     h1 {
@@ -181,9 +187,10 @@
     <h1>Gristmill Grinder</h1>
     <div class="subheader">1/2 Marathon Time & Pace Calculator</div>
 
-<div class="embed-container">
-  <embed src="countdown-timer.html" width="100%" height="60">
+<div class="countdown-container">
+    <iframe src="countdown-timer.html" frameborder="0" scrolling="no"></iframe>
 </div>
+
 
   
     <!-- Radio Buttons for selecting Mode -->
